@@ -4,16 +4,10 @@ import pyspark.sql.functions as F
 
 if __name__ == "__main__":
 
-    #check the number of arguments
-    #if len(sys.argv) != 3:
-        #print("Usage: sql_example <input folder> <output folder>")
-        #exit(-1)
-
     #Set a name for the application
     appName = "Businesses taht offer takeout and have menu photo with sql"
 
-    #Set the input folder location to the first argument of the application
-    #NB! sys.argv[0] is the path/name of the script file
+    #Set the input folders
     input_folder_photo = "yelp/small_photo"
     input_folder_business = "yelp/small_business"
     input_folder_review = "yelp/small_review"
@@ -38,7 +32,7 @@ if __name__ == "__main__":
                .json(input_folder_review)
 
     # Set the output folder location to the second argument of the application
-    output_folder = "businesses_with_takeout_photo"
+    output_folder = "Results/average_stars_sql"
 
     #create a new Spark application and get the Spark session object
     spark = SparkSession.builder.appName(appName).getOrCreate()
@@ -63,16 +57,10 @@ if __name__ == "__main__":
     #Register the resulting DataFreame as an SQL table so it can be addressed in following SQL querries.
     vastus.registerTempTable("vastus")
 
-    #Display counts
     vastus.show()
 
     #Write results into the output folder
-    vastus.write.format("json").save(output_folder)
-
-    #To force Spark write output as a single file, you can use:
-    #counts.coalesce(1).write.format("json").save(output_folder)
-    #coalesce(N) repartitions DataFrame or RDD into N partitions.
-    # NB! But be careful when using coalesce(N), your program will crash if the whole DataFrame does not fit into memory of N processes.
+    vastus.write.format("csv").save(output_folder)
 
     #Stop Spark session
     spark.stop()

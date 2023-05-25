@@ -1,5 +1,4 @@
 
-#tee juurde nii, et ei salvestaks mõtetuid faile
 import sys
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
@@ -45,7 +44,9 @@ if __name__ == "__main__":
     top_5 = counts.limit(5)
 
     #Write results into the output folder
-    top_5.write.format("csv").save("top_5")
+    #top_5.write.format("csv").save("top_5")
+    #To force Spark write output as a single file, you can use:
+    top_5.coalesce(1).write.format("csv").save("Results/TOP_5_DATAFRAME") #millegi pärast ei töödanud
 
 
     #Stop Spark session

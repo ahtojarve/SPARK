@@ -39,9 +39,6 @@ if __name__ == "__main__":
                .json(input_folder_review)
 
 
-    #Show 10 rows without truncating lines.
-    #review content might be a multi-line string.
-    #review.show(10, False)
 
     #Show dataset schema/structure with filed names and types
     business.printSchema()
@@ -70,9 +67,9 @@ if __name__ == "__main__":
     print(round(result,2))
     rounded_result = round(result, 2)
 
-    #write results into txt file.
+    #write results into csv file.
 
-    with open ("average_stars.txt", "w") as file:
+    with open ("Results/average_stars.csv", "w") as file:
         file.write(str(rounded_result))
 
     #Stop Spark session

@@ -10,8 +10,7 @@ if __name__ == "__main__":
     #Set a name for the application
     appName = "DataFrame Example"
 
-    #Set the input folder location to the first argument of the application
-    #NB! sys.argv[0] is the path/name of the script file
+    #Set the input folder locations
     input_folder_business = "yelp/small_business"
     input_folder_review = "yelp/small_review"
 
@@ -51,7 +50,8 @@ if __name__ == "__main__":
     # Display the pivot table
     df_pivot.select("city", "2018-2", "2018-3", "2018-4", "2018-5", "2018-6", "2018-7").show(10, True)
 
-    df_pivot.write.format("csv").save("average_stars_by_month")
+    #Save the table
+    df_pivot.write.format("csv").save("Results/average_stars_by_month")
 
 
 
